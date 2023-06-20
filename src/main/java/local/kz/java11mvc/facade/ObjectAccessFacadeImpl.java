@@ -49,11 +49,11 @@ public class ObjectAccessFacadeImpl implements ObjectAccessFacade {
         if(t.getClass().equals(UserDTO.class)){clientRepository.create(clientMapper.mapToEntity((UserDTO)t));}
         if(t.getClass().equals(PaperDTO.class)){paperRepository.create(paperMapper.mapToEntity((PaperDTO)t));}
     }
-    public <T, U> U find(T t){
+    public <T> T find(T t){
         if(t.getClass().equals(UserDTO.class)){
-            return (U)(clientRepository.findById(clientMapper.mapToEntity((UserDTO)t).getClientId()));}
+            return (T)(clientMapper.mapToDTO(clientRepository.findById(clientMapper.mapToEntity((UserDTO)t).getClientId())));}
         if(t.getClass().equals(PaperDTO.class)){
-            return (U)paperRepository.findById(paperMapper.mapToEntity((PaperDTO)t).getPaperId());}
+            return (T)(paperMapper.mapToDTO(paperRepository.findById(paperMapper.mapToEntity((PaperDTO)t).getPaperId())));}
         return null;
     }
 }
