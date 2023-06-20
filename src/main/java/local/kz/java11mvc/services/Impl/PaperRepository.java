@@ -5,7 +5,6 @@ import java.util.List;
 
 public interface PaperRepository {
    List<Paper> findAll();
-
     void create(Paper paper);
     void deleteById(Long id);
     void update(Paper paper);

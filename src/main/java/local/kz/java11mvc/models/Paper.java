@@ -2,7 +2,6 @@ package local.kz.java11mvc.models;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.Objects;
 
 @Entity

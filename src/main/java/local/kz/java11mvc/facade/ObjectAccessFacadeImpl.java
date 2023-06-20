@@ -39,9 +39,9 @@ public class ObjectAccessFacadeImpl implements ObjectAccessFacade {
         if(t.getClass().equals(UserDTO.class)){clientRepository.update(clientMapper.mapToEntity((UserDTO)t));}
         if(t.getClass().equals(PaperDTO.class)){paperRepository.update(paperMapper.mapToEntity((PaperDTO)t));}
     }
-    public <T> void delete(T t){
-        if(t.getClass().equals(UserDTO.class)){clientRepository.deleteById(((clientMapper.mapToEntity((UserDTO)t)).getClientId()));}
-        if(t.getClass().equals(PaperDTO.class)){paperRepository.deleteById(((paperMapper.mapToEntity((PaperDTO)t)).getPaperId()));}
+    public <T> void delete(T t, Long id){
+        if(t.getClass().equals(UserDTO.class)){clientRepository.deleteById(id);}
+        if(t.getClass().equals(PaperDTO.class)){paperRepository.deleteById(id);}
     }
 
     @Override
@@ -49,11 +49,11 @@ public class ObjectAccessFacadeImpl implements ObjectAccessFacade {
         if(t.getClass().equals(UserDTO.class)){clientRepository.create(clientMapper.mapToEntity((UserDTO)t));}
         if(t.getClass().equals(PaperDTO.class)){paperRepository.create(paperMapper.mapToEntity((PaperDTO)t));}
     }
-    public <T> T find(T t){
+    public <T> T find(T t, Long id){
         if(t.getClass().equals(UserDTO.class)){
-            return (T)(clientMapper.mapToDTO(clientRepository.findById(clientMapper.mapToEntity((UserDTO)t).getClientId())));}
+            return (T)clientMapper.mapToDTO(clientRepository.findById(id));}
         if(t.getClass().equals(PaperDTO.class)){
-            return (T)(paperMapper.mapToDTO(paperRepository.findById(paperMapper.mapToEntity((PaperDTO)t).getPaperId())));}
+            return (T)paperMapper.mapToDTO(paperRepository.findById(id));}
         return null;
     }
 }

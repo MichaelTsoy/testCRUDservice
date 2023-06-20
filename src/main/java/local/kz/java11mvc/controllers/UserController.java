@@ -1,5 +1,6 @@
 package local.kz.java11mvc.controllers;
 
+import local.kz.java11mvc.dto.FrontendParametersPOJO;
 import local.kz.java11mvc.dto.UserDTO;
 import local.kz.java11mvc.facade.ObjectAccessFacade;
 import org.springframework.http.HttpStatus;
@@ -28,18 +29,18 @@ public class UserController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
     @ResponseBody
-    @PostMapping("/readUser")
-    public ResponseEntity<UserDTO> readUser(@RequestBody UserDTO userDTO){
-        return new ResponseEntity(facade.find(new UserDTO()), HttpStatus.OK);
+    @GetMapping("/readUser")
+    public ResponseEntity<UserDTO> readUser(@RequestBody FrontendParametersPOJO pojo){
+        return new ResponseEntity(facade.find(new UserDTO(), pojo.getId()), HttpStatus.OK);
     }
     @PostMapping("/updateUser")
     public ResponseEntity updateUser(@RequestBody UserDTO userDTO){
         facade.update(userDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    @PostMapping("/deleteUser")
-    public ResponseEntity deleteUser(@RequestBody UserDTO userDTO){
-        facade.delete(userDTO);
+    @GetMapping("/deleteUser")
+    public ResponseEntity deleteUser(@RequestBody FrontendParametersPOJO pojo){
+        facade.delete(new UserDTO(), pojo.getId());
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

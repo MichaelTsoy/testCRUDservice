@@ -9,7 +9,7 @@ public class restTest {
     public void createPaper(){
         String queryBody = "{\n" +
                 "\"paperName\": \"new Paper\", \n" +
-                " \"paperContent\": \"Content\"\n" +
+                " \"paperContent\": \"Content\", \n" +
                 " \"clientId\": \"1\"\n" +
                 "}";
         RestAssured
@@ -27,7 +27,7 @@ public class restTest {
     public void createUser(){
         String queryBody = "{\n" +
                 "\"clientName\": \"clientName\", \n" +
-                " \"clientSurname\": \"cleintSurname\"\n" +
+                " \"clientSurname\": \"cleintSurname\", \n" +
                 " \"clientEmail\": \"clientEmail\"\n" +
                 "}";
         RestAssured
@@ -64,4 +64,100 @@ public class restTest {
                 .then()
                 .statusCode(200);
     }
+    @Test
+    public void deletePaper(){
+        String queryBody = "{\n" +
+                "\"id\": \"1\" \n" +
+                "}";
+        RestAssured
+                .given()
+                .log().all()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(queryBody)
+                .get(localUrl+ "deletePaper")
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    public void deleteUser(){
+        String queryBody = "{\n" +
+                "\"id\": \"1\" \n" +
+                "}";
+        RestAssured
+                .given()
+                .log().all()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(queryBody)
+                .get(localUrl+ "deleteUser")
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    public void updatePaper(){
+        String queryBody = "{\n" +
+                "\"paperName\": \"modifiedPaper\", \n" +
+                " \"paperContent\": \"modifiedContent\", \n" +
+                " \"clientId\": \"1\"\n" +
+                "}";
+        RestAssured
+                .given()
+                .log().all()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(queryBody)
+                .get(localUrl+ "updateUser")
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    public void updateUser(){
+        String queryBody = "{\n" +
+                "\"clientName\": \"Иван\", \n" +
+                " \"clientSurname\": \"Иванов\", \n" +
+                " \"clientEmail\": \"Ivan@mail.ru\" \n" +
+                "}";
+        RestAssured
+                .given()
+                .log().all()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(queryBody)
+                .get(localUrl+ "updateUser")
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    public void readUser(){
+        String queryBody = "{\n" +
+                "\"id\": \"1\" \n" +
+                "}";
+        RestAssured
+                .given()
+                .log().all()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(queryBody)
+                .get(localUrl+ "readUser")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void readPaper(){
+        String queryBody = "{\n" +
+                "\"id\": \"1\" \n" +
+                "}";
+        RestAssured
+                .given()
+                .log().all()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(queryBody)
+                .get(localUrl+ "readPaper")
+                .then()
+                .statusCode(200);
+    }
+
 }

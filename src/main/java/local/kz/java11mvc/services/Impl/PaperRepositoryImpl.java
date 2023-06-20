@@ -4,7 +4,6 @@ import local.kz.java11mvc.models.Paper;
 import local.kz.java11mvc.repository.PaperDAORepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
 @Service
 public class PaperRepositoryImpl implements PaperRepository{
     private PaperDAORepository paperDAORepository;

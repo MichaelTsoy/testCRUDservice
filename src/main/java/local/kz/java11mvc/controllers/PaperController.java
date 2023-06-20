@@ -1,5 +1,6 @@
 package local.kz.java11mvc.controllers;
 
+import local.kz.java11mvc.dto.FrontendParametersPOJO;
 import local.kz.java11mvc.dto.PaperDTO;
 import local.kz.java11mvc.facade.ObjectAccessFacade;
 import org.springframework.http.HttpStatus;
@@ -28,18 +29,18 @@ public class PaperController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
     @ResponseBody
-    @PostMapping("/readPaper")
-    public ResponseEntity readPaper(@RequestBody PaperDTO paperDTO){
-        return new ResponseEntity(facade.find(new PaperDTO()), HttpStatus.OK);
+    @GetMapping("/readPaper")
+    public ResponseEntity readPaper(@RequestBody FrontendParametersPOJO pojo){
+        return new ResponseEntity(facade.find(new PaperDTO(), pojo.getId()), HttpStatus.OK);
     }
     @PostMapping("/updatePaper")
     public ResponseEntity updatePaper(@RequestBody PaperDTO paperDTO){
         facade.update(paperDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    @PostMapping("/deletePaper")
-    public ResponseEntity deletePaper(@RequestBody PaperDTO paperDTO){
-        facade.delete(paperDTO);
+    @GetMapping("/deletePaper")
+    public ResponseEntity deleteUser(@RequestBody FrontendParametersPOJO pojo){
+        facade.delete(new PaperDTO(), pojo.getId());
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }
