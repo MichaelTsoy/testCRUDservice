@@ -2,16 +2,17 @@ package local.kz.java11mvc.models;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Objects;
 
 @Entity
-@Table(name = "paper")
+@Table(name = "papers")
 @Transactional
 public class Paper {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="paperId")
-    private long paperId;
+    private Long paperId;
     @NotNull
     @Column(name="paperName")
     private String paperName;
@@ -19,20 +20,26 @@ public class Paper {
 //    @Lob
     @Column(name="paperContent", columnDefinition = "TEXT")
     private String paperContent;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, targetEntity = Client.class)
-    @JoinColumn(name = "clientId")
-    private Client client;
-    public Paper(String paperName, String paperContent){
+    @Column(name="clientId")
+    private Long clientId;
+    public Paper(String paperName, String paperContent, Long clientId){
         this.paperName = paperName;
         this.paperContent = paperContent;
+        this.clientId = clientId;
+    }
+    public Paper(Long paperid, String paperName, String paperContent, Long clientId){
+        this.paperId = paperid;
+        this.paperName = paperName;
+        this.paperContent = paperContent;
+        this.clientId = clientId;
     }
     public Paper(){}
 
-    public long getPaperId() {
+    public Long getPaperId() {
         return paperId;
     }
 
-    public void setPaperId(long paperId) {
+    public void setPaperId(Long paperId) {
         this.paperId = paperId;
     }
 
@@ -52,12 +59,12 @@ public class Paper {
         this.paperContent = paperContent;
     }
 
-    public Client getClient() {
-        return client;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     @Override
@@ -65,11 +72,19 @@ public class Paper {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Paper paper = (Paper) o;
-        return paperName.equals(paper.paperName) && paperContent.equals(paper.paperContent);
+        return paperId.equals(paper.paperId) && paperName.equals(paper.paperName) && paperContent.equals(paper.paperContent) && clientId.equals(paper.clientId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paperName, paperContent);
+        return Objects.hash(paperId, paperName, paperContent, clientId);
+    }
+
+    @Override
+    public String toString() {
+        return "Paper{" +
+                "paperName='" + paperName + '\'' +
+                ", paperContent='" + paperContent + '\'' +
+                '}';
     }
 }

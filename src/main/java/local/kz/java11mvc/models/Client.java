@@ -3,18 +3,16 @@ package local.kz.java11mvc.models;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "client")
+@Table(name = "clients")
 @Transactional
 public class Client {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="clientId")
-    public long clientId;
+    public Long clientId;
     @NotNull
     @Column(name="clientName")
     public String clientName;
@@ -24,18 +22,25 @@ public class Client {
     @NotNull
     @Column(name="clientEmail")
     public String clientEmail;
-    @Column(name="clientPapers")
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, mappedBy = "client")
-    public List<Paper> clientPapers = new ArrayList<>();
     public Client(){
-    }public Client(String clientName, String clientSurname, String clientEmail){
+    }
+    public Client(String clientName, String clientSurname, String clientEmail){
+        this.clientName = clientName;
+        this.clientSurname = clientSurname;
+        this.clientEmail = clientEmail;
+    }
+    public Client(Long clientId, String clientName, String clientSurname, String clientEmail){
+        this.clientId = clientId;
+        this.clientName = clientName;
+        this.clientSurname = clientSurname;
+        this.clientEmail = clientEmail;
     }
 
-    public long getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
@@ -63,24 +68,25 @@ public class Client {
         this.clientSurname = clientSurname;
     }
 
-    public List<Paper> getClientPapers() {
-        return clientPapers;
-    }
-
-    public void setClientPapers(List<Paper> clientPapers) {
-        this.clientPapers = clientPapers;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return clientName.equals(client.clientName) && clientSurname.equals(client.clientSurname) && clientEmail.equals(client.clientEmail);
+        return clientId.equals(client.clientId) && clientName.equals(client.clientName) && clientSurname.equals(client.clientSurname) && clientEmail.equals(client.clientEmail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientName, clientSurname, clientEmail);
+        return Objects.hash(clientId, clientName, clientSurname, clientEmail);
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "clientName='" + clientName + '\'' +
+                ", clientSurname='" + clientSurname + '\'' +
+                ", clientEmail='" + clientEmail + '\'' +
+                '}';
     }
 }

@@ -15,4 +15,14 @@ public class PaperRepositoryImpl implements PaperRepository{
     public List<Paper> findAll() {
         return paperDAORepository.findAll();
     }
+    public void create(Paper paper){
+        paperDAORepository.save(paper);
+    }
+    public void deleteById(Long id){paperDAORepository.deleteById(id);}
+    public void update(Paper paper) {
+        paperDAORepository.save(paper);
+    }
+    public Paper findById (Long id){
+        return paperDAORepository.findById(id).get();
+    }
 }
