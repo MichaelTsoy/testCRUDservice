@@ -5,6 +5,7 @@ import local.kz.java11mvc.facade.ObjectAccessFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +15,12 @@ public class PaperController {
     private ObjectAccessFacade facade;
     public PaperController(ObjectAccessFacade facade){
         this.facade = facade;
+    }
+
+    @ResponseBody
+    @GetMapping("/Papers")
+    public ResponseEntity listPapers() {
+        return new ResponseEntity(facade.getAll(new PaperDTO()), HttpStatus.OK);
     }
     @PostMapping("/createPaper")
     public ResponseEntity createPaper(@RequestBody PaperDTO paperDTO){
