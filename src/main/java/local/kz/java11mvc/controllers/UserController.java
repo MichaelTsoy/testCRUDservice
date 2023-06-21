@@ -25,12 +25,12 @@ public class UserController {
     }
     @PostMapping("/createUser")
     public ResponseEntity createUser(@RequestBody UserDTO userDTO){
-        facade.create(new UserDTO(userDTO.getClientName(), userDTO.getClientSurname(), userDTO.getClientEmail()));
+        facade.create(userDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
     @ResponseBody
     @GetMapping("/readUser")
-    public ResponseEntity<UserDTO> readUser(@RequestBody FrontendParametersPOJO pojo){
+    public ResponseEntity readUser(@RequestBody FrontendParametersPOJO pojo){
         return new ResponseEntity(facade.find(new UserDTO(), pojo.getId()), HttpStatus.OK);
     }
     @PostMapping("/updateUser")

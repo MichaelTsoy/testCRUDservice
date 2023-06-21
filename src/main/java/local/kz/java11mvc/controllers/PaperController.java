@@ -25,7 +25,7 @@ public class PaperController {
     }
     @PostMapping("/createPaper")
     public ResponseEntity createPaper(@RequestBody PaperDTO paperDTO){
-        facade.create(new PaperDTO(paperDTO.getPaperName(), paperDTO.getPaperContent(), paperDTO.getClientId()));
+        facade.create(paperDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
     @ResponseBody
