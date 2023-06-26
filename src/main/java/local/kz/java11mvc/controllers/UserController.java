@@ -28,7 +28,6 @@ public class UserController {
     @PostMapping("/createUser")
     public ResponseEntity createUser(@RequestBody UserDTO userDTO){
         facade.create(userDTO);
-//        return ResponseEntity.ok(HttpStatus.CREATED);
         return ResponseEntity.created(URI.create("/createUser")).build();
     }
     @ResponseBody
