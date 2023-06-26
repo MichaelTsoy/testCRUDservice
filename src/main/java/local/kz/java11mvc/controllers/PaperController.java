@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.URI;
+
 @Controller
 public class PaperController {
     private ObjectAccessFacade facade;
@@ -26,7 +28,8 @@ public class PaperController {
     @PostMapping("/createPaper")
     public ResponseEntity createPaper(@RequestBody PaperDTO paperDTO){
         facade.create(paperDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+//        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/createPaper")).build();
     }
     @ResponseBody
     @GetMapping("/readPaper")
@@ -38,7 +41,7 @@ public class PaperController {
         facade.update(paperDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    @GetMapping("/deletePaper")
+    @PostMapping("/deletePaper")
     public ResponseEntity deleteUser(@RequestBody FrontendParametersPOJO pojo){
         facade.delete(new PaperDTO(), pojo.getId());
         return ResponseEntity.ok(HttpStatus.OK);

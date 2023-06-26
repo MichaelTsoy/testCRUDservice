@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.URI;
+
 @Controller
 public class UserController {
 
@@ -26,7 +28,8 @@ public class UserController {
     @PostMapping("/createUser")
     public ResponseEntity createUser(@RequestBody UserDTO userDTO){
         facade.create(userDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+//        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/createUser")).build();
     }
     @ResponseBody
     @GetMapping("/readUser")
@@ -38,7 +41,7 @@ public class UserController {
         facade.update(userDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    @GetMapping("/deleteUser")
+    @PostMapping("/deleteUser")
     public ResponseEntity deleteUser(@RequestBody FrontendParametersPOJO pojo){
         facade.delete(new UserDTO(), pojo.getId());
         return ResponseEntity.ok(HttpStatus.OK);

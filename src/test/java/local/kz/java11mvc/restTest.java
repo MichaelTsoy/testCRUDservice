@@ -2,15 +2,17 @@ package local.kz.java11mvc;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+import org.springframework.stereotype.Component;
 
+@Component
 public class restTest {
-    private final String localUrl = "localhost:8081/";
+    private final String localUrl = "http://localhost:8080/";
     @Test
     public void createPaper(){
         String queryBody = "{\n" +
                 "\"paperName\": \"new Paper\", \n" +
                 " \"paperContent\": \"Content\", \n" +
-                " \"clientId\": \"1\"\n" +
+                " \"clientId\": \"3\"\n" +
                 "}";
         RestAssured
                 .given()
@@ -20,7 +22,7 @@ public class restTest {
                 .body(queryBody)
                 .post(localUrl+ "createPaper")
                 .then()
-                .statusCode(200);
+                .statusCode(201);
     }
 
     @Test
@@ -38,7 +40,7 @@ public class restTest {
                 .body(queryBody)
                 .post(localUrl+ "createUser")
                 .then()
-                .statusCode(200);
+                .statusCode(201);
     }
 
     @Test
@@ -75,7 +77,7 @@ public class restTest {
                 .when()
                 .contentType(ContentType.JSON)
                 .body(queryBody)
-                .get(localUrl+ "deletePaper")
+                .post(localUrl+ "deletePaper")
                 .then()
                 .statusCode(200);
     }
@@ -90,7 +92,7 @@ public class restTest {
                 .when()
                 .contentType(ContentType.JSON)
                 .body(queryBody)
-                .get(localUrl+ "deleteUser")
+                .post(localUrl+ "deleteUser")
                 .then()
                 .statusCode(200);
     }
@@ -99,7 +101,7 @@ public class restTest {
         String queryBody = "{\n" +
                 "\"paperName\": \"modifiedPaper\", \n" +
                 " \"paperContent\": \"modifiedContent\", \n" +
-                " \"clientId\": \"1\"\n" +
+                " \"clientId\": \"\"\n" +
                 "}";
         RestAssured
                 .given()
@@ -107,7 +109,7 @@ public class restTest {
                 .when()
                 .contentType(ContentType.JSON)
                 .body(queryBody)
-                .get(localUrl+ "updateUser")
+                .post(localUrl+ "updateUser")
                 .then()
                 .statusCode(200);
     }
@@ -124,14 +126,14 @@ public class restTest {
                 .when()
                 .contentType(ContentType.JSON)
                 .body(queryBody)
-                .get(localUrl+ "updateUser")
+                .post(localUrl+ "updateUser")
                 .then()
                 .statusCode(200);
     }
     @Test
     public void readUser(){
         String queryBody = "{\n" +
-                "\"id\": \"1\" \n" +
+                "\"id\": \"2\" \n" +
                 "}";
         RestAssured
                 .given()
@@ -147,7 +149,7 @@ public class restTest {
     @Test
     public void readPaper(){
         String queryBody = "{\n" +
-                "\"id\": \"1\" \n" +
+                "\"id\": \"2\" \n" +
                 "}";
         RestAssured
                 .given()

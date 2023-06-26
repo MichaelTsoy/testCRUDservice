@@ -26,7 +26,7 @@ public class ObjectAccessFacadeImpl implements ObjectAccessFacade {
         if(t.getClass().equals(UserDTO.class)){
             List<UserDTO> list = new ArrayList<>();
             clientRepository.findAll().stream().forEach(e -> list.add(clientMapper.mapToDTO(e)));
-        return (List<T>)list;
+            return (List<T>)list;
         }
         if(t.getClass().equals(PaperDTO.class)){
             List<PaperDTO> list = new ArrayList<>();
