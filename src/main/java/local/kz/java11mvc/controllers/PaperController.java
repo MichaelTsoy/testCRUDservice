@@ -28,7 +28,6 @@ public class PaperController {
     @PostMapping("/createPaper")
     public ResponseEntity createPaper(@RequestBody PaperDTO paperDTO){
         facade.create(paperDTO);
-//        return ResponseEntity.ok(HttpStatus.CREATED);
         return ResponseEntity.created(URI.create("/createPaper")).build();
     }
     @ResponseBody
